@@ -1,0 +1,7 @@
+{
+ "L3": 1.62,
+ "L5": 1.64,
+ "L7": 3.53,
+ "max_abs_diff_naive_vs_calibrated": 0.0008,
+ "max_abs_diff_eta_sweep": 0.002
+}

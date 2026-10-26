@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flagdecode"
+version = "0.1.0"
+description = "Flag-aware matching versus neural decoding of the toric code under imperfect erasure flags"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = ["numpy", "scipy", "networkx", "torch", "pandas", "matplotlib"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
