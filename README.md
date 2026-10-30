@@ -18,24 +18,42 @@ Erasure conversion (Ma et al., 2023, doi:10.1038/s41586-023-06438-1) turns many 
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ffffff', 'primaryTextColor': '#000000', 'primaryBorderColor': '#000000', 'lineColor': '#000000', 'secondaryColor': '#ffffff', 'tertiaryColor': '#ffffff', 'background': '#ffffff', 'noteBkgColor': '#ffffff', 'noteTextColor': '#000000', 'actorBkg': '#ffffff', 'actorBorder': '#000000', 'actorTextColor': '#000000', 'signalColor': '#000000', 'signalTextColor': '#000000', 'labelBoxBkgColor': '#ffffff', 'labelTextColor': '#000000', 'clusterBkg': '#ffffff', 'clusterBorder': '#000000'}}}%%
-mindmap
-  root(("Does imperfect flagging change the best decoder?"))
-    Method
-      ["lattice.py: toric code on L by L torus"]
-      ["sample_noise: erasure rate pe, flag efficiency eta"]
-    Baselines
-      ["Minimum-weight perfect matching, MWPM"]
-      ["Flags ignored, naive flags, calibrated flags"]
-      ["Multilayer perceptron, MLP, with flags"]
-    Metrics
-      ["Logical failure probability"]
-      ["Mean and standard deviation over 3 seeds"]
-    Ablations
-      ["MLP without flag inputs"]
-      ["MWPM with flags ignored"]
-    Limits
-      ["Code capacity, X errors only"]
-      ["No repeated rounds, L up to 7"]
+flowchart LR
+  N0["Does imperfect flagging change the best decoder?"]
+  N1["Method"]
+  N0 --> N1
+  N2["lattice.py: toric code on L by L torus"]
+  N1 --> N2
+  N3["sample_noise: erasure rate pe, flag efficiency eta"]
+  N1 --> N3
+  N4["Baselines"]
+  N0 --> N4
+  N5["Minimum-weight perfect matching, MWPM"]
+  N4 --> N5
+  N6["Flags ignored, naive flags, calibrated flags"]
+  N4 --> N6
+  N7["Multilayer perceptron, MLP, with flags"]
+  N4 --> N7
+  N8["Metrics"]
+  N0 --> N8
+  N9["Logical failure probability"]
+  N8 --> N9
+  N10["Mean and standard deviation over 3 seeds"]
+  N8 --> N10
+  N11["Ablations"]
+  N0 --> N11
+  N12["MLP without flag inputs"]
+  N11 --> N12
+  N13["MWPM with flags ignored"]
+  N11 --> N13
+  N14["Limits"]
+  N0 --> N14
+  N15["Code capacity, X errors only"]
+  N14 --> N15
+  N16["No repeated rounds, L up to 7"]
+  N14 --> N16
+  classDef bw fill:#ffffff,stroke:#000000,color:#000000,stroke-width:2px;
+  class N0,N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16 bw;
 ```
 
 Noise: each qubit is erased with probability p_e (then X with probability 1/2), otherwise X with probability p = 0.01; an erasure is flagged with probability eta. MWPM uses Dijkstra distances on the dual torus and exact matching (networkx). *Calibrated* weights use P(X | unflagged) = ((1-p_e)p + p_e(1-eta)/2) / ((1-p_e) + p_e(1-eta)). The MLP (2 x 256 hidden units) takes syndrome, flags and eta and predicts the logical class of the error relative to a fixed reference correction. Details: `docs/METHOD.md`.
